@@ -4,9 +4,50 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Resume</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
         <style>{% include "style.css" %}</style>
     </head>
     <body>
-        Hi {{ personalInfo.firstName }} ! how are you?
+        <section class="personalInfo">
+            <div class="personalInfo__identity">
+                <h1>{{ personalInfo.firstName }}
+                    {{ personalInfo.lastName }}</h1>
+                <p class="title">{{ personalInfo.title }}</p>
+            </div>
+            <div class="personalInfo__contact">
+                <p>{{ personalInfo.city }}, {{ personalInfo.province }}</p>
+                <p>{{ personalInfo.phone }} | {{ personalInfo.email }}</p>
+                <p>
+                    <a href="https://{{ personalInfo.linkedIn }}">{{ personalInfo.linkedIn }}</a>
+                    |
+                    <a href="https://{{ personalInfo.github }}">{{ personalInfo.github }}</a>
+                </p>
+                <p>{{ personalInfo.spokenLanguages.sectionTitle }} :
+                    {% for lang in personalInfo.spokenLanguages.items %}
+                        {{ lang }}
+                        {% if not loop.last %}|{% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+        </section>
+        <section class="potato">
+            <h2>Experiences</h2>
+            <div class="parent">
+                <div class="left" style="width:25%; border-right:1px solid black;">
+                    <p style="font-variant: small-caps;">Mar 2022 - Mai 2023</p>
+                    <p>Montreal</p>
+                </div>
+                <div class="right" style="width:75%">
+                    <p style="font-weight:bold;">Unity Technologies</p>
+                    <p style="font-variant: small-caps;">Software Developer</p>
+                    <ul style="list-style-type: '- '">
+                        <li>Developed a new feature for the Unity Editor</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
     </body>
-</html>
+</html></body></html>

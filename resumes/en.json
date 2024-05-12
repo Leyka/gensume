@@ -9,7 +9,10 @@
     "province": "NY",
     "linkedIn": "linkedin.com/in/johndoe",
     "github": "github.com/johndoe",
-    "spokenLanguages": ["French", "English"]
+    "spokenLanguages": {
+      "sectionTitle": "Languages",
+      "items": ["English", "French"]
+    }
   },
   "experience": {
     "sectionTitle": "Experience",

@@ -12,6 +12,11 @@ export async function validateResumeSchema(data) {
   return error.details.map((error) => error.message);
 }
 
+const stringItemsSectionSchema = Joi.object({
+  sectionTitle: Joi.string().required(),
+  items: Joi.array().items(Joi.string()).min(1).required(),
+});
+
 const personalInfoSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
@@ -22,7 +27,7 @@ const personalInfoSchema = Joi.object({
   province: Joi.string().required(),
   linkedIn: Joi.string().required(),
   github: Joi.string().required(),
-  spokenLanguages: Joi.array().items(Joi.string()).min(1).required(),
+  spokenLanguages: stringItemsSectionSchema.required(),
 });
 
 const experienceSchema = Joi.object({
@@ -57,11 +62,6 @@ const educationSchema = Joi.object({
     )
     .min(1)
     .required(),
-});
-
-const stringItemsSectionSchema = Joi.object({
-  sectionTitle: Joi.string().required(),
-  items: Joi.array().items(Joi.string()).min(1).required(),
 });
 
 const techSkillsSchema = Joi.object({

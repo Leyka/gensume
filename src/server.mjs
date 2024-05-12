@@ -3,7 +3,7 @@ import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import nunjucks from "nunjucks";
 
-const PORT = 3000;
+const port = 3000;
 const app = express();
 
 const resumesDir = join(process.cwd(), "resumes");
@@ -32,8 +32,8 @@ app.get("/:lang?", async (req, res) => {
   res.render("index.njk", jsonResumeData);
 });
 
-app.listen(PORT, () => {
-  console.log(`✨ Open http://localhost:${PORT} in your browser to test your resume.`);
+app.listen(port, () => {
+  console.log(`✨ Open http://localhost:${port} in your browser to test your resume.`);
   console.log(
     "✨ Use http://localhost:3000/<lang> to test in different language. Example: http://localhost:3000/fr",
   );
