@@ -1,2 +1,3 @@
 # resume
-My resume in LaTeX
+
+My resume

@@ -1,0 +1,78 @@
+{
+  "personalInfo": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "title": "Software Engineer",
+    "email": "john.doe@example.com",
+    "phone": "123-456-7890",
+    "city": "New York",
+    "province": "NY",
+    "linkedIn": "linkedin.com/in/johndoe",
+    "github": "github.com/johndoe",
+    "spokenLanguages": ["French", "English"]
+  },
+  "experience": {
+    "sectionTitle": "Experience",
+    "experiences": [
+      {
+        "company": "ABC Inc.",
+        "jobTitle": "Software Developer",
+        "startDate": "2018-01-01",
+        "endDate": "2020-12-31",
+        "city": "New York",
+        "achievements": ["Implemented feature X", "Optimized database queries"]
+      },
+      {
+        "company": "XYZ Corp.",
+        "jobTitle": "Senior Software Engineer",
+        "startDate": "2021-01-01",
+        "endDate": "2023-06-30",
+        "city": "San Francisco",
+        "achievements": ["Led team in project Y", "Developed new architecture"]
+      }
+    ]
+  },
+  "education": {
+    "sectionTitle": "Education",
+    "educations": [
+      {
+        "institution": "University of Example",
+        "degree": "Bachelor of Science in Computer Science",
+        "startDate": "2014-09-01",
+        "endDate": "2018-06-30",
+        "city": "New York",
+        "achievements": ["Graduated with honors"]
+      }
+    ]
+  },
+  "techSkills": {
+    "sectionTitle": "Technical Skills",
+    "languages": {
+      "sectionTitle": "Languages",
+      "items": ["JavaScript", "Python", "Java"]
+    },
+    "web": {
+      "sectionTitle": "Web",
+      "items": ["HTML", "CSS", "React"]
+    },
+    "databases": {
+      "sectionTitle": "Databases",
+      "items": ["MySQL", "MongoDB"]
+    },
+    "devOps": {
+      "sectionTitle": "DevOps",
+      "items": ["Docker", "Kubernetes"]
+    }
+  },
+  "misc": {
+    "sectionTitle": "Miscellaneous",
+    "skills": {
+      "sectionTitle": "Skills",
+      "items": ["Problem Solving", "Teamwork", "Communication"]
+    },
+    "hobbies": {
+      "sectionTitle": "Hobbies",
+      "items": ["Traveling", "Photography", "Reading"]
+    }
+  }
+}
