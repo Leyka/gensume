@@ -23,56 +23,15 @@ a {
   color: inherit;
 }
 
-.personalInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  text-align: center;
+ul {
+  list-style-type: "- " !important;
 }
 
-.personalInfo__identity {
-  line-height: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.personalInfo__identity > h1 {
-  font-size: 2rem;
-}
-
-.personalInfo__identity > .title {
+/* Utils */
+.small-caps {
   font-variant: small-caps;
 }
 
-.personalInfo__contact {
-  line-height: 1.3rem;
-}
-
-.potato h2 {
-  font-size: 1.5rem;
-  font-variant: small-caps;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #000;
-}
-
-.potato .parent {
-  display: flex;
-}
-
-.potato .left {
-  width: 30%;
-  border-right: 1px solid #000;
-  padding-right: 1rem;
-  text-align: right;
-}
-
-.potato .right {
-  width: 70%;
-  padding-left: 1rem;
-}
-
-.potato ul {
-  list-style-type: "- ";
-  margin-left: 1.5rem;
+.sans-serif {
+  font-family: "Computer Modern Sans Serif", sans-serif;
 }

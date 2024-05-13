@@ -20,18 +20,34 @@
       {
         "company": "ABC Inc.",
         "jobTitle": "Software Developer",
-        "startDate": "2018-01-01",
-        "endDate": "2020-12-31",
+        "startDate": "Mar 2018",
+        "endDate": "Apr 2022",
         "city": "New York",
-        "achievements": ["Implemented feature X", "Optimized database queries"]
+        "achievements": [
+          "Implemented feature X",
+          "Optimized database queries",
+          "Mentored junior developers"
+        ]
       },
       {
         "company": "XYZ Corp.",
         "jobTitle": "Senior Software Engineer",
-        "startDate": "2021-01-01",
-        "endDate": "2023-06-30",
+        "startDate": "Jan 2014",
+        "endDate": "Feb 2018",
         "city": "San Francisco",
         "achievements": ["Led team in project Y", "Developed new architecture"]
+      },
+      {
+        "company": "123 LLC",
+        "jobTitle": "Software Engineer",
+        "startDate": "Jun 2012",
+        "endDate": "Dec 2013",
+        "city": "Los Angeles",
+        "achievements": [
+          "Collaborated with cross-functional teams",
+          "Delivered high-quality code (C#, ASP .NET/MVC, React/TS, C++)",
+          "This is very long achievement to test the layout of the page. This is very long achievement to test the layout of the page."
+        ]
       }
     ]
   },
@@ -41,41 +57,44 @@
       {
         "institution": "University of Example",
         "degree": "Bachelor of Science in Computer Science",
-        "startDate": "2014-09-01",
-        "endDate": "2018-06-30",
-        "city": "New York",
-        "achievements": ["Graduated with honors"]
+        "startDate": "Sep 2008",
+        "endDate": "May 2012",
+        "city": "New York"
       }
     ]
   },
   "techSkills": {
     "sectionTitle": "Technical Skills",
-    "languages": {
-      "sectionTitle": "Languages",
-      "items": ["JavaScript", "Python", "Java"]
-    },
-    "web": {
-      "sectionTitle": "Web",
-      "items": ["HTML", "CSS", "React"]
-    },
-    "databases": {
-      "sectionTitle": "Databases",
-      "items": ["MySQL", "MongoDB"]
-    },
-    "devOps": {
-      "sectionTitle": "DevOps",
-      "items": ["Docker", "Kubernetes"]
-    }
+    "sections": [
+      {
+        "sectionTitle": "Languages",
+        "items": ["JavaScript", "Python", "Java"]
+      },
+      {
+        "sectionTitle": "Web",
+        "items": ["HTML", "CSS", "React"]
+      },
+      {
+        "sectionTitle": "Databases",
+        "items": ["MySQL", "MongoDB"]
+      },
+      {
+        "sectionTitle": "DevOps",
+        "items": ["Docker", "Kubernetes"]
+      }
+    ]
   },
   "misc": {
     "sectionTitle": "Miscellaneous",
-    "skills": {
-      "sectionTitle": "Skills",
-      "items": ["Problem Solving", "Teamwork", "Communication"]
-    },
-    "hobbies": {
-      "sectionTitle": "Hobbies",
-      "items": ["Traveling", "Photography", "Reading"]
-    }
+    "sections": [
+      {
+        "sectionTitle": "Skills",
+        "items": ["Problem Solving", "Teamwork", "Communication"]
+      },
+      {
+        "sectionTitle": "Hobbies",
+        "items": ["Traveling", "Photography", "Reading"]
+      }
+    ]
   }
 }

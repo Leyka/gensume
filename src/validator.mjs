@@ -66,16 +66,12 @@ const educationSchema = Joi.object({
 
 const techSkillsSchema = Joi.object({
   sectionTitle: Joi.string().required(),
-  languages: stringItemsSectionSchema.required(),
-  web: stringItemsSectionSchema.required(),
-  databases: stringItemsSectionSchema.required(),
-  devOps: stringItemsSectionSchema.required(),
+  sections: Joi.array().items(stringItemsSectionSchema).min(1).required(),
 });
 
 const miscSchema = Joi.object({
   sectionTitle: Joi.string().required(),
-  skills: stringItemsSectionSchema.required(),
-  hobbies: stringItemsSectionSchema.required(),
+  sections: Joi.array().items(stringItemsSectionSchema).min(1).required(),
 });
 
 const resumeSchema = Joi.object({

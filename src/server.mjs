@@ -2,6 +2,7 @@ import express from "express";
 import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import nunjucks from "nunjucks";
+import { validateResumeSchema } from "./validator.mjs";
 
 const port = 3000;
 const app = express();
@@ -28,6 +29,15 @@ app.get("/:lang?", async (req, res) => {
 
   const resumeData = await readFile(resumePath, "utf-8");
   const jsonResumeData = JSON.parse(resumeData);
+
+  // Validate the resume data here
+  const errors = await validateResumeSchema(jsonResumeData);
+  if (errors) {
+    res
+      .status(400)
+      .send(`Error: The resume is invalid. The following errors were found: ${errors}`);
+    return;
+  }
 
   res.render("index.njk", jsonResumeData);
 });
