@@ -13,7 +13,7 @@ export function renderToHtml(data) {
   return nunjucksRenderAsync("index.njk", data);
 }
 
-export async function renderHtmlToPdf(html, fileName, format = "letter") {
+export async function renderHtmlToPdf(html, fileName, format = "Letter") {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setContent(html);
@@ -21,7 +21,7 @@ export async function renderHtmlToPdf(html, fileName, format = "letter") {
   const fileDotPdf = ensureEndsWith(fileName, ".pdf");
   const resumePath = join(process.cwd(), "resumes", fileDotPdf);
 
-  await page.pdf({ path: resumePath, format: "Letter" });
+  await page.pdf({ path: resumePath, format });
 
   await browser.close();
 }
