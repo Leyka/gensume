@@ -5,30 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Resume</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
-        <style>{% include "style.css" %}</style>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+        <style>
+            {% include "style.css" %}
+        </style>
     </head>
     <body>
-        <section class="flex flex-col items-center mt-4 mb-4 text-center">
+        <section class="flex flex-col items-center mt-5 text-center">
             <div class="mb-2">
-                <h1 class="text-3xl font-bold leading-5">
-                    {{ personalInfo.firstName }}
-                    {{ personalInfo.lastName }}
-                </h1>
-                <p class="small-caps">
-                    {{ personalInfo.title }}
-                </p>
+                <h1 class="text-3xl font-bold leading-5">{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h1>
+                <p class="text-lg small-caps">{{ personalInfo.title }}</p>
             </div>
             <div class="leading-5">
                 <p>{{ personalInfo.city }}, {{ personalInfo.province }}</p>
                 <p>{{ personalInfo.phone }} | {{ personalInfo.email }}</p>
                 <p>
-                    <a href="https://{{ personalInfo.linkedIn }}">{{ personalInfo.linkedIn }}</a>
-                    |
-                    <a href="https://{{ personalInfo.github }}">{{ personalInfo.github }}</a>
+                    <a href="https://{{ personalInfo.linkedIn }}">{{ personalInfo.linkedIn }}</a> | <a href="https://{{ personalInfo.github }}">{{ personalInfo.github }}</a>
                 </p>
                 <p>{{ personalInfo.spokenLanguages.sectionTitle }} :
                     {% for lang in personalInfo.spokenLanguages.items %}
@@ -39,9 +31,9 @@
         </section>
         {# Section <Experience> #}
         <section>
-            <h2 class="text-xl font-bold mb-3 border-b border-black small-caps sans-serif">{{experience.sectionTitle}}</h2>
+            <h2 class="text-base font-bold mb-3 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{experience.sectionTitle}}</h2>
             {% for experience in experience.experiences %}
-                <div class="flex mb-3">
+                <div class="flex mb-3 leading-5">
                     <div class="w-3/12 text-right pr-4 border-r border-black">
                         <p class="small-caps">{{experience.startDate}} - {{experience.endDate}}</p>
                         <p>{{experience.city}}</p>
@@ -59,10 +51,10 @@
             {% endfor %}
         </section>
         {# Section <Education> #}
-        <section class="mt-3">
-            <h2 class="text-xl font-bold mb-3 border-b border-black small-caps sans-serif">{{education.sectionTitle}}</h2>
+        <section class="mt-4">
+            <h2 class="text-base font-bold mb-3 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{education.sectionTitle}}</h2>
             {% for education in education.educations %}
-                <div class="flex mb-3">
+                <div class="flex mb-3 leading-5">
                     <div class="w-3/12 text-right pr-4 border-r border-black">
                         <p class="small-caps">{{education.startDate}} - {{education.endDate}}</p>
                         <p>{{education.city}}</p>
@@ -80,10 +72,10 @@
             {% endfor %}
         </section>
         {# Section <Technical Skills> #}
-        <section class="mt-3">
-            <h2 class="text-xl font-bold mb-3 border-b border-black small-caps sans-serif">{{techSkills.sectionTitle}}</h2>
+        <section class="mt-4">
+            <h2 class="text-base mb-3 font-bold border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{techSkills.sectionTitle}}</h2>
             {% for section in techSkills.sections %}
-                <div class="flex mt-1">
+                <div class="flex leading-6">
                     <div class="w-3/12 text-right pr-4 small-caps">
                         {{section.sectionTitle}}
                     </div>
@@ -96,10 +88,10 @@
             {% endfor %}
         </section>
         {# Section <Misc> #}
-        <section class="mt-3">
-            <h2 class="text-xl font-bold mb-3 border-b border-black small-caps sans-serif">{{misc.sectionTitle}}</h2>
+        <section class="mt-4">
+            <h2 class="text-base font-bold mb-3 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{misc.sectionTitle}}</h2>
             {% for section in misc.sections %}
-                <div class="flex mt-1">
+                <div class="flex leading-6">
                     <div class="w-3/12 text-right pr-4 small-caps">
                         {{section.sectionTitle}}
                     </div>
@@ -112,4 +104,4 @@
             {% endfor %}
         </section>
     </body>
-</html></body></html>
+</html>

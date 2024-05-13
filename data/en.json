@@ -2,11 +2,11 @@
   "personalInfo": {
     "firstName": "John",
     "lastName": "Doe",
-    "title": "Software Engineer",
+    "title": "Full-Stack Developer",
     "email": "john.doe@example.com",
     "phone": "123-456-7890",
-    "city": "New York",
-    "province": "NY",
+    "city": "Montreal",
+    "province": "Quebec",
     "linkedIn": "linkedin.com/in/johndoe",
     "github": "github.com/johndoe",
     "spokenLanguages": {
@@ -48,6 +48,14 @@
           "Delivered high-quality code (C#, ASP .NET/MVC, React/TS, C++)",
           "This is very long achievement to test the layout of the page. This is very long achievement to test the layout of the page."
         ]
+      },
+      {
+        "company": "456 Ltd.",
+        "jobTitle": "Junior Software Developer",
+        "startDate": "Jan 2012",
+        "endDate": "May 2012",
+        "city": "Chicago",
+        "achievements": ["Worked on project Z", "Learned new technologies"]
       }
     ]
   },
@@ -60,6 +68,13 @@
         "startDate": "Sep 2008",
         "endDate": "May 2012",
         "city": "New York"
+      },
+      {
+        "institution": "College of Example",
+        "degree": "Diploma in Software Engineering",
+        "startDate": "Sep 2006",
+        "endDate": "May 2008",
+        "city": "Los Angeles"
       }
     ]
   },

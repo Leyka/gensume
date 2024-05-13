@@ -1,3 +1,3 @@
 # resume
 
-My resume
+My resume Generator
