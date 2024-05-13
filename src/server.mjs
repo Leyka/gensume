@@ -33,9 +33,7 @@ app.get("/:lang?", async (req, res) => {
   // Validate the resume data here
   const errors = await validateResumeSchema(jsonResumeData);
   if (errors) {
-    res
-      .status(400)
-      .send(`Error: The resume is invalid. The following errors were found: ${errors}`);
+    res.status(400).send(formatSchemaValidationError(lang, errors));
     return;
   }
 
@@ -48,3 +46,16 @@ app.listen(port, () => {
     "✨ Use http://localhost:3000/<lang> to test in different language. Example: http://localhost:3000/fr",
   );
 });
+
+function formatSchemaValidationError(lang, errors) {
+  let errMsg = `
+    <h2>The resume "${lang}" has invalid schema.</h2>
+    <p>The following errors were found:</p>
+    <pre><ul>`;
+  errors.forEach((error) => {
+    errMsg += `<li>${error}</li>`;
+  });
+  errMsg += "</ul></pre>";
+
+  return errMsg;
+}
