@@ -1,12 +1,12 @@
 /**
- * @param {string} str
+ * @param {string} input
  * @param {string} suffix
  * @returns {string}
  */
-export function ensureEndsWith(str, suffix) {
-  if (!str || !suffix) {
-    return str;
+export function ensureEndsWith(input, suffix) {
+  if (!input || !suffix) {
+    return input;
   }
 
-  return str.endsWith(suffix) ? str : str + suffix;
+  return input.endsWith(suffix) ? input : input + suffix;
 }

@@ -5,14 +5,12 @@ import nunjucks from "nunjucks";
 import { config } from "./config.mjs";
 import { validateResumeSchema } from "./validator.mjs";
 
-const port = config.server.port;
-const app = express();
-
 const dataDir = join(process.cwd(), "data");
 const defaultResumeLang = config.pdf.defaultLang;
 
+const port = config.server.port;
+const app = express();
 nunjucks.configure("./src/template", { autoescape: true, express: app, watch: true });
-
 app.set("view engine", "njk");
 
 app.get("/:lang?", async (req, res) => {
@@ -31,14 +29,24 @@ app.get("/:lang?", async (req, res) => {
   const resumeData = await readFile(resumePath, "utf-8");
   const jsonResumeData = JSON.parse(resumeData);
 
-  // Validate the resume data here
   const errors = await validateResumeSchema(jsonResumeData);
   if (errors) {
-    res.status(400).send(formatSchemaValidationError(lang, errors));
+    let err = `
+    <h2>The resume "${lang}" has invalid schema.</h2>
+    <p>The following errors were found:</p>
+    <pre><ul>`;
+
+    errors.forEach((error) => {
+      err += `<li>${error}</li>`;
+    });
+
+    err += "</ul></pre>";
+
+    res.status(400).send(err);
     return;
   }
 
-  res.render("index.njk", jsonResumeData);
+  res.render("resume.njk", jsonResumeData);
 });
 
 app.listen(port, () => {
@@ -47,16 +55,3 @@ app.listen(port, () => {
     "✨ Use http://localhost:3000/<lang> to test in different language. Example: http://localhost:3000/fr",
   );
 });
-
-function formatSchemaValidationError(lang, errors) {
-  let errMsg = `
-    <h2>The resume "${lang}" has invalid schema.</h2>
-    <p>The following errors were found:</p>
-    <pre><ul>`;
-  errors.forEach((error) => {
-    errMsg += `<li>${error}</li>`;
-  });
-  errMsg += "</ul></pre>";
-
-  return errMsg;
-}

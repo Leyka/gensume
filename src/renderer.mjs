@@ -9,10 +9,20 @@ nunjucks.configure(templateDir, { autoescape: true });
 
 const nunjucksRenderAsync = promisify(nunjucks.render);
 
+/**
+ * @param {*} data
+ * @returns {Promise<string>} html
+ */
 export function renderToHtml(data) {
-  return nunjucksRenderAsync("index.njk", data);
+  return nunjucksRenderAsync("resume.njk", data);
 }
 
+/**
+ * @param {string} html
+ * @param {string} fileName
+ * @param {string} paperSize
+ * @returns {Promise<void>}
+ */
 export async function renderHtmlToPdf(html, fileName, paperSize) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
