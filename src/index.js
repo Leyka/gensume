@@ -13,10 +13,10 @@ readdir(dataDir, (err, files) => {
     return;
   }
 
-  files.forEach((file) => processLocalizedResume(dataDir, file));
+  files.forEach(processLocalizedResume);
 });
 
-async function processLocalizedResume(dataDir, file) {
+async function processLocalizedResume(file) {
   const resumeData = await readFile(join(dataDir, file), "utf-8");
   const jsonResumeData = JSON.parse(resumeData);
 
