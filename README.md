@@ -27,7 +27,9 @@ Example of generated PDF: [en.pdf](https://github.com/Leyka/resume/blob/main/res
 
 ## Work on your resume
 
-It's possible to work on the resume layout easily on the browser. type on terminal:
+It's possible to work on the resume layout directy on the browser. 
+
+Type on terminal:
 
 ```
 npm start server
@@ -35,9 +37,7 @@ npm start server
 
 This will launch a web server on `http://localhost:3000`.
 
-You can also target a specific language by adding `/<lang>`. 
-
-Example: `http://localhost:3000/fr`
+You can also target a specific language by adding `/<lang>`. Example: `http://localhost:3000/fr`
 
 ## License 
 
