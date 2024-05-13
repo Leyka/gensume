@@ -2,13 +2,13 @@ import { readdir } from "node:fs";
 import { join } from "node:path";
 import { processLocalizedResume } from "./processor.mjs";
 
-const resumesDir = join(process.cwd(), "resumes");
+const dataDir = join(process.cwd(), "data");
 
-readdir(resumesDir, (err, files) => {
+readdir(dataDir, (err, files) => {
   if (err) {
     console.error(err);
     return;
   }
 
-  files.forEach((file) => processLocalizedResume(resumesDir, file));
+  files.forEach((file) => processLocalizedResume(dataDir, file));
 });

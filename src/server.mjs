@@ -6,7 +6,7 @@ import nunjucks from "nunjucks";
 const port = 3000;
 const app = express();
 
-const resumesDir = join(process.cwd(), "resumes");
+const dataDir = join(process.cwd(), "data");
 const defaultResumeLang = "en";
 
 nunjucks.configure("./src/template", { autoescape: true, express: app, watch: true });
@@ -16,7 +16,7 @@ app.set("view engine", "njk");
 app.get("/:lang?", async (req, res) => {
   const lang = req.params.lang || defaultResumeLang;
 
-  const resumePath = join(resumesDir, `${lang}.json`);
+  const resumePath = join(dataDir, `${lang}.json`);
   const fileExists = await access(resumePath)
     .then(() => true)
     .catch(() => false);
