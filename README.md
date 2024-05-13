@@ -10,7 +10,7 @@ After installing node dependencies, type:
 npm start
 ```
 
-The flow to generate is very simple. Once you add a language data inside data/ directory (e.g. `en.json`), this is what happen:
+The flow to generate is very simple. Once you add a language data inside [data/](https://github.com/Leyka/resume/tree/main/data) directory (e.g. `en.json`), this is what happen:
 ```mermaid
 flowchart LR
   A((start)) ==read==> B{.json}
