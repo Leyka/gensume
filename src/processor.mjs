@@ -15,9 +15,7 @@ export async function processLocalizedResume(dataDir, file) {
   }
 
   const html = await renderToHtml(jsonResumeData);
-
   const lang = file.split(".")[0];
-
   await renderHtmlToPdf(html, lang);
 
   console.log(`✅ The resume '${file}' was successfully exported to PDF format.`);
