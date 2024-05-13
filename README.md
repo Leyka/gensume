@@ -1,6 +1,6 @@
 # resume
 
-Generate localized resume with the same layout.
+Generate localized resumes using the same layout.
 
 ## Generate a resume
 
