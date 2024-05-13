@@ -9,7 +9,7 @@ const port = config.server.port;
 const app = express();
 
 const dataDir = join(process.cwd(), "data");
-const defaultResumeLang = "en";
+const defaultResumeLang = config.pdf.defaultLang;
 
 nunjucks.configure("./src/template", { autoescape: true, express: app, watch: true });
 
