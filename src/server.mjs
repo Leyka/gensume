@@ -2,9 +2,10 @@ import express from "express";
 import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import nunjucks from "nunjucks";
+import { config } from "./config.mjs";
 import { validateResumeSchema } from "./validator.mjs";
 
-const port = 3000;
+const port = config.server.port;
 const app = express();
 
 const dataDir = join(process.cwd(), "data");

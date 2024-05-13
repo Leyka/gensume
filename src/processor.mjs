@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { config } from "./config.mjs";
 import { renderHtmlToPdf, renderToHtml } from "./renderer.mjs";
 import { validateResumeSchema } from "./validator.mjs";
 
@@ -16,7 +17,8 @@ export async function processLocalizedResume(dataDir, file) {
 
   const html = await renderToHtml(jsonResumeData);
   const lang = file.split(".")[0];
-  await renderHtmlToPdf(html, lang);
+  const paperSize = config.pdf.paperSize;
+  await renderHtmlToPdf(html, lang, paperSize);
 
   console.log(`✅ The resume '${file}' was successfully exported to PDF format.`);
 }
