@@ -9,7 +9,7 @@ export async function processLocalizedResume(dataDir, file) {
 
   const errors = await validateResumeSchema(jsonResumeData);
   if (errors) {
-    console.error(`The resume '${file}' is invalid. The following errors were found:`);
+    console.error(`❌ The resume '${file}' is invalid. The following errors were found:`);
     console.error(errors);
     return;
   }
@@ -17,5 +17,8 @@ export async function processLocalizedResume(dataDir, file) {
   const html = await renderToHtml(jsonResumeData);
 
   const lang = file.split(".")[0];
+
   await renderHtmlToPdf(html, lang);
+
+  console.log(`✅ The resume '${file}' was successfully exported to PDF format.`);
 }

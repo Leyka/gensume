@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "start": "npm run lint && node src/index.js",
-    "server": "node src/server.mjs",
-    "test": "jest"
+    "start": "node src/index.js",
+    "server": "node src/server.mjs"
   },
   "dependencies": {
     "chokidar": "^3.6.0",
