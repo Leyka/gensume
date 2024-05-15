@@ -3,6 +3,7 @@ import { join } from "node:path";
 export const config = {
   server: {
     port: 3000,
+    defaultLang: "en",
   },
   data: {
     dir: join(process.cwd(), "data"),
@@ -12,7 +13,6 @@ export const config = {
     templateFile: "resume.njk",
   },
   pdf: {
-    defaultLang: "en",
     paperSize: "Letter", // Letter, Legal, A4, etc.
     outputDir: join(process.cwd(), "resumes"),
   },

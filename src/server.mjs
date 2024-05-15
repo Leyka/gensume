@@ -5,9 +5,6 @@ import nunjucks from "nunjucks";
 import { config } from "./config.mjs";
 import { validateResumeSchema } from "./validator.mjs";
 
-const dataDir = config.data.dir;
-const defaultResumeLang = config.pdf.defaultLang;
-
 const port = config.server.port;
 const app = express();
 
@@ -20,8 +17,10 @@ nunjucks.configure(templateDir, {
 app.set("view engine", "njk");
 
 app.get("/:lang?", async (req, res) => {
-  const lang = req.params.lang || defaultResumeLang;
+  const defaultLang = config.server.defaultLang;
+  const lang = req.params.lang || defaultLang;
 
+  const dataDir = config.data.dir;
   const resumePath = join(dataDir, `${lang}.json`);
   const fileExists = await access(resumePath)
     .then(() => true)
