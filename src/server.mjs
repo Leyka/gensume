@@ -5,12 +5,18 @@ import nunjucks from "nunjucks";
 import { config } from "./config.mjs";
 import { validateResumeSchema } from "./validator.mjs";
 
-const dataDir = join(process.cwd(), "data");
+const dataDir = config.data.dir;
 const defaultResumeLang = config.pdf.defaultLang;
 
 const port = config.server.port;
 const app = express();
-nunjucks.configure("./src/template", { autoescape: true, express: app, watch: true });
+
+const templateDir = config.html.templateDir;
+nunjucks.configure(templateDir, {
+  autoescape: true,
+  express: app,
+  watch: true,
+});
 app.set("view engine", "njk");
 
 app.get("/:lang?", async (req, res) => {
@@ -46,7 +52,8 @@ app.get("/:lang?", async (req, res) => {
     return;
   }
 
-  res.render("resume.njk", jsonResumeData);
+  const templateFile = config.html.templateFile;
+  res.render(templateFile, jsonResumeData);
 });
 
 app.listen(port, () => {

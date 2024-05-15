@@ -5,7 +5,7 @@ import { config } from "./config.mjs";
 import { renderHtmlToPdf, renderToHtml } from "./renderer.mjs";
 import { validateResumeSchema } from "./validator.mjs";
 
-const dataDir = join(process.cwd(), "data");
+const dataDir = config.data.dir;
 
 readdir(dataDir, (err, files) => {
   if (err) {

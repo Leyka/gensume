@@ -2,9 +2,10 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 import nunjucks from "nunjucks";
 import puppeteer from "puppeteer";
+import { config } from "./config.mjs";
 import { ensureEndsWith } from "./utils.mjs";
 
-const templateDir = join(process.cwd(), "src", "template");
+const templateDir = config.html.templateDir;
 nunjucks.configure(templateDir, { autoescape: true });
 
 const nunjucksRenderAsync = promisify(nunjucks.render);
@@ -14,7 +15,8 @@ const nunjucksRenderAsync = promisify(nunjucks.render);
  * @returns {Promise<string>} html
  */
 export function renderToHtml(data) {
-  return nunjucksRenderAsync("resume.njk", data);
+  const templateFile = config.html.templateFile;
+  return nunjucksRenderAsync(templateFile, data);
 }
 
 /**
@@ -28,9 +30,9 @@ export async function renderHtmlToPdf(html, fileName, paperSize) {
   const page = await browser.newPage();
   await page.setContent(html);
 
+  const outputDir = config.pdf.outputDir;
   const fileDotPdf = ensureEndsWith(fileName, ".pdf");
-  const resumePath = join(process.cwd(), "resumes", fileDotPdf);
-
+  const resumePath = join(outputDir, fileDotPdf);
   await page.pdf({ path: resumePath, format: paperSize });
 
   await browser.close();
