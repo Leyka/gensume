@@ -16,22 +16,32 @@ readdir(dataDir, (err, files) => {
   files.forEach(processLocalizedResume);
 });
 
-async function processLocalizedResume(file) {
-  const resumeData = await readFile(join(dataDir, file), "utf-8");
+async function processLocalizedResume(fileName) {
+  if (!fileName.endsWith(".json")) {
+    console.error(`❌ The file '${fileName}' is not a JSON file.`);
+    return;
+  }
+
+  const resumeData = await readFile(join(dataDir, fileName), "utf-8");
   const jsonResumeData = JSON.parse(resumeData);
 
   const errors = await validateResumeSchema(jsonResumeData);
   if (errors) {
-    console.error(`❌ The resume '${file}' is invalid. The following errors were found:`);
+    console.error(`❌ The resume '${fileName}' is invalid. The following errors were found:`);
     console.error(errors);
     return;
   }
 
   const html = await renderToHtml(jsonResumeData);
 
-  const lang = file.split(".")[0];
-  const paperSize = config.pdf.paperSize;
-  await renderHtmlToPdf(html, lang, paperSize);
+  const fileDotPdf = fileName.substring(0, fileName.lastIndexOf(".")) + ".pdf";
+  const resumeOutputPath = join(config.pdf.outputDir, fileDotPdf);
 
-  console.log(`✅ The resume '${file}' was successfully exported to PDF format.`);
+  await renderHtmlToPdf({
+    html,
+    resumeOutputPath,
+    paperSize: config.pdf.paperSize,
+  });
+
+  console.log(`✅ The resume '${fileName}' was successfully exported to PDF format.`);
 }

@@ -1,9 +1,7 @@
-import { join } from "node:path";
 import { promisify } from "node:util";
 import nunjucks from "nunjucks";
 import puppeteer from "puppeteer";
 import { config } from "./config.mjs";
-import { ensureEndsWith } from "./utils.mjs";
 
 const templateDir = config.html.templateDir;
 nunjucks.configure(templateDir, { autoescape: true });
@@ -20,20 +18,17 @@ export function renderToHtml(data) {
 }
 
 /**
- * @param {string} html
- * @param {string} fileName
- * @param {string} paperSize
- * @returns {Promise<void>}
+ * @param {Object} options
+ * @param {string} options.html
+ * @param {string} options.paperSize
+ * @param {string} options.resumeOutputPath
  */
-export async function renderHtmlToPdf(html, fileName, paperSize) {
+export async function renderHtmlToPdf({ html, paperSize, resumeOutputPath }) {
   const browser = await puppeteer.launch();
+
   const page = await browser.newPage();
   await page.setContent(html);
-
-  const outputDir = config.pdf.outputDir;
-  const fileDotPdf = ensureEndsWith(fileName, ".pdf");
-  const resumePath = join(outputDir, fileDotPdf);
-  await page.pdf({ path: resumePath, format: paperSize });
+  await page.pdf({ path: resumeOutputPath, format: paperSize });
 
   await browser.close();
 }
