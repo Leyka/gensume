@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export async function validateResumeSchema(data) {
+export function validateResumeSchema(data) {
   const { error } = resumeSchema.validate(data, {
     abortEarly: false,
   });

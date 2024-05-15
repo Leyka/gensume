@@ -17,22 +17,19 @@ readdir(dataDir, (err, files) => {
 });
 
 async function processLocalizedResume(fileName) {
-  if (!fileName.endsWith(".json")) {
-    console.error(`❌ The file '${fileName}' is not a JSON file.`);
+  const resumeData = await readJSONFromFile(fileName);
+  if (!resumeData) {
     return;
   }
 
-  const resumeData = await readFile(join(dataDir, fileName), "utf-8");
-  const jsonResumeData = JSON.parse(resumeData);
-
-  const errors = await validateResumeSchema(jsonResumeData);
+  const errors = validateResumeSchema(resumeData);
   if (errors) {
-    console.error(`❌ The resume '${fileName}' is invalid. The following errors were found:`);
+    console.error(`❌ Resume '${fileName}' is invalid. The following errors were found:`);
     console.error(errors);
     return;
   }
 
-  const html = await renderToHtml(jsonResumeData);
+  const html = await renderToHtml(resumeData);
 
   const fileDotPdf = fileName.substring(0, fileName.lastIndexOf(".")) + ".pdf";
   const resumeOutputPath = join(config.pdf.outputDir, fileDotPdf);
@@ -43,5 +40,20 @@ async function processLocalizedResume(fileName) {
     paperSize: config.pdf.paperSize,
   });
 
-  console.log(`✅ The resume '${fileName}' was successfully exported to PDF format.`);
+  console.log(`✅ Resume '${fileName}' was successfully exported to PDF format.`);
+}
+
+async function readJSONFromFile(fileName) {
+  if (!fileName.endsWith(".json")) {
+    console.error(`❌ File '${fileName}' is not a JSON file.`);
+    return null;
+  }
+
+  try {
+    const fileData = await readFile(join(dataDir, fileName), "utf-8");
+    return JSON.parse(fileData);
+  } catch {
+    console.error(`❌ File '${fileName}' could not be parsed as JSON`);
+    return null;
+  }
 }
