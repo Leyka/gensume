@@ -18,7 +18,7 @@
             </div>
             <div class="leading-5">
                 <p>{{ personalInfo.city }}, {{ personalInfo.province }}</p>
-                <p>{{ personalInfo.phone }} | {{ personalInfo.email }}</p>
+                <p>{{ personalInfo.phone }} | <a href="mailto:{{personalInfo.email}}">{{ personalInfo.email }}</a></p>
                 <p>
                     <a href="https://{{ personalInfo.linkedIn }}">{{ personalInfo.linkedIn }}</a> | <a href="https://{{ personalInfo.github }}">{{ personalInfo.github }}</a>
                 </p>
