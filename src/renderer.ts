@@ -4,7 +4,7 @@ import { config } from "./config";
 
 nunjucks.configure(config.html.templateDir, { autoescape: true });
 
-export function renderToHtml(templateFile: string, data: object) {
+export function renderToHtml(templateFile: string, data: object): string {
   return nunjucks.render(templateFile, data);
 }
 
@@ -12,7 +12,7 @@ export async function renderHtmlToPdf(params: {
   html: string;
   paperSize: string;
   resumeOutputPath: string;
-}) {
+}): Promise<void> {
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();

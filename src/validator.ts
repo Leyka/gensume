@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export function validateResumeSchema(data: object) {
+export function validateResumeSchema(data: object): string[] | null {
   const { error } = resumeSchema.validate(data, {
     abortEarly: false,
   });

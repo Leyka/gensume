@@ -7,16 +7,18 @@ import { validateResumeSchema } from "./validator";
 
 const dataDir = config.data.dir;
 
-readdir(dataDir, (err, files) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+function main(): void {
+  readdir(dataDir, (err, files) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
 
-  files.forEach(processLocalizedResume);
-});
+    files.forEach(processLocalizedResume);
+  });
+}
 
-async function processLocalizedResume(fileName: string) {
+async function processLocalizedResume(fileName: string): Promise<void> {
   const resumeData = await readJSONFromFile(fileName);
   if (!resumeData) {
     return;
@@ -43,10 +45,10 @@ async function processLocalizedResume(fileName: string) {
   console.log(`✅ Resume '${fileName}' was successfully exported to PDF format.`);
 }
 
-async function readJSONFromFile(fileName: string) {
+async function readJSONFromFile(fileName: string): Promise<object | undefined> {
   if (!fileName.endsWith(".json")) {
     console.error(`❌ File '${fileName}' is not a JSON file.`);
-    return null;
+    return undefined;
   }
 
   try {
@@ -54,6 +56,8 @@ async function readJSONFromFile(fileName: string) {
     return JSON.parse(fileData);
   } catch {
     console.error(`❌ File '${fileName}' could not be parsed as JSON`);
-    return null;
+    return undefined;
   }
 }
+
+main();
