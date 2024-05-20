@@ -2,20 +2,26 @@
 
 Generate localized resumes using the same layout.
 
-## Prerequisite
+## Prerequisites
 
-Node.js LTS
+* Node.js (LTS)
 
 ## Generate a resume
 
-After installing node dependencies, type:
+Install dependencies 
+```
+npm install
+```
 
+Then run the generator by doing:
 ```
 npm run build
 npm start
 ```
 
-The flow to generate is simple. Once you add a language data inside [data/](https://github.com/Leyka/resume/tree/main/data) directory (e.g. `en.json`), this is what happen:
+The process can be summarized as: `json` + `html` = `pdf`.
+
+Once you add a language data inside [data/](https://github.com/Leyka/resume/tree/main/data) directory (e.g. `en.json`), this is what happen:
 
 ```mermaid
 flowchart LR
@@ -25,23 +31,19 @@ flowchart LR
   D --> E[to pdf]
 ```
 
-Internally, the generator leverages [Nunjucks](https://mozilla.github.io/nunjucks/), a templating language, to create HTML content from templates.
+Internally, the generator leverages [Nunjucks](https://mozilla.github.io/nunjucks/), to create HTML content from templates.
 
-This HTML content is then fed into [Puppeteer](https://pptr.dev/), a Node library which provides a high-level API to control headless Chrome or Chromium browsers.
-
-Puppeteer, acting as a headless browser, utilizes the Chromium API to convert the HTML content into a PDF file.
+This HTML content is then fed into [Puppeteer](https://pptr.dev/) that utilizes the Chromium API to convert the HTML content into a PDF file.
 
 ## Example
-
-The process can be summarized as: `json` + `njk` = `pdf`
 
 ### Input: `.json`
 
 Sample English resume data can be found at: [data/en.json](./data/en.json)
 
-To ensure the JSON schema remains valid for different languages, I use the [Joi](https://joi.dev/) library for validation.
+To ensure the JSON schema remains valid for all languages, [Joi](https://joi.dev/) is used as JSON schema validator.
 
-### Input: `.njk`
+### Input: `.njk` (html)
 
 The Nunjucks template and the CSS file are located here: [src/template](./src/template/)
 
@@ -67,7 +69,7 @@ To target a specific language, append `/<lang>` to the URL.
 
 For example, to view the French resume (if available), navigate to `http://localhost:3000/fr`.
 
-Note that `<lang>` is basically the file name in `data` folder (`/potato` => `potato.json`)
+_Note that `<lang>` is basically the file name in `data` folder (`/potato` => `potato.json`)_
 
 ## License
 
