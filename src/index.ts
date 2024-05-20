@@ -1,9 +1,9 @@
 import { readdir } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { config } from "./config.mjs";
-import { renderHtmlToPdf, renderToHtml } from "./renderer.mjs";
-import { validateResumeSchema } from "./validator.mjs";
+import { config } from "./config";
+import { renderHtmlToPdf, renderToHtml } from "./renderer";
+import { validateResumeSchema } from "./validator";
 
 const dataDir = config.data.dir;
 
@@ -16,7 +16,7 @@ readdir(dataDir, (err, files) => {
   files.forEach(processLocalizedResume);
 });
 
-async function processLocalizedResume(fileName) {
+async function processLocalizedResume(fileName: string) {
   const resumeData = await readJSONFromFile(fileName);
   if (!resumeData) {
     return;
@@ -29,21 +29,21 @@ async function processLocalizedResume(fileName) {
     return;
   }
 
-  const html = await renderToHtml(resumeData);
+  const resumeTemplateFile = config.html.templateFile;
+  const html = await renderToHtml(resumeTemplateFile, resumeData);
 
   const fileDotPdf = fileName.substring(0, fileName.lastIndexOf(".")) + ".pdf";
-  const resumeOutputPath = join(config.pdf.outputDir, fileDotPdf);
 
   await renderHtmlToPdf({
     html,
-    resumeOutputPath,
+    resumeOutputPath: join(config.pdf.outputDir, fileDotPdf),
     paperSize: config.pdf.paperSize,
   });
 
   console.log(`✅ Resume '${fileName}' was successfully exported to PDF format.`);
 }
 
-async function readJSONFromFile(fileName) {
+async function readJSONFromFile(fileName: string) {
   if (!fileName.endsWith(".json")) {
     console.error(`❌ File '${fileName}' is not a JSON file.`);
     return null;

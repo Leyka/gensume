@@ -2,8 +2,8 @@ import express from "express";
 import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import nunjucks from "nunjucks";
-import { config } from "./config.mjs";
-import { validateResumeSchema } from "./validator.mjs";
+import { config } from "./config";
+import { validateResumeSchema } from "./validator";
 
 const port = config.server.port;
 const app = express();

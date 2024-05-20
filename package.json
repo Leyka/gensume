@@ -1,15 +1,15 @@
 {
   "name": "resume",
   "version": "1.0.0",
-  "description": "My resume",
-  "main": "index.js",
-  "type": "module",
+  "description": "My resume generator",
+  "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint .",
-    "start": "node src/index.js",
-    "server": "node src/server.mjs"
+    "build": "rimraf dist && tsc",
+    "start": "node dist/index.js",
+    "server": "ts-node-dev  --respawn --transpile-only src/server.ts"
   },
   "dependencies": {
+    "@types/nunjucks": "^3.2.6",
     "chokidar": "^3.6.0",
     "express": "^4.19.2",
     "joi": "^17.13.1",
@@ -17,8 +17,10 @@
     "puppeteer": "^22.8.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.2.0",
-    "eslint": "^9.2.0",
-    "globals": "^15.2.0"
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "rimraf": "^5.0.7",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
   }
 }
