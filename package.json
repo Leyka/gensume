@@ -9,7 +9,6 @@
     "server": "ts-node-dev  --respawn --transpile-only src/server.ts"
   },
   "dependencies": {
-    "@types/nunjucks": "^3.2.6",
     "chokidar": "^3.6.0",
     "express": "^4.19.2",
     "joi": "^17.13.1",
@@ -19,6 +18,7 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.12",
+    "@types/nunjucks": "^3.2.6",
     "rimraf": "^5.0.7",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
