@@ -3,8 +3,7 @@ import nunjucks from "nunjucks";
 import puppeteer, { PaperFormat } from "puppeteer";
 import { config } from "./config";
 
-const templateDir = config.html.templateDir;
-nunjucks.configure(templateDir, { autoescape: true });
+nunjucks.configure(config.html.templateDir, { autoescape: true });
 
 const nunjucksRenderAsync: (name: string, context?: object) => Promise<string> = promisify(
   nunjucks.render,
