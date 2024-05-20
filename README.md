@@ -67,6 +67,8 @@ To target a specific language, append `/<lang>` to the URL.
 
 For example, to view the French resume (if available), navigate to `http://localhost:3000/fr`.
 
+Note that `<lang>` is basically the file name in `data` folder (`/potato` => `potato.json`)
+
 ## License
 
 MIT
