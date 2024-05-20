@@ -1,16 +1,11 @@
-import { promisify } from "node:util";
 import nunjucks from "nunjucks";
 import puppeteer, { PaperFormat } from "puppeteer";
 import { config } from "./config";
 
 nunjucks.configure(config.html.templateDir, { autoescape: true });
 
-const nunjucksRenderAsync: (name: string, context?: object) => Promise<string> = promisify(
-  nunjucks.render,
-);
-
 export function renderToHtml(templateFile: string, data: object) {
-  return nunjucksRenderAsync(templateFile, data);
+  return nunjucks.render(templateFile, data);
 }
 
 export async function renderHtmlToPdf(params: {

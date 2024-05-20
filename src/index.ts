@@ -30,7 +30,7 @@ async function processLocalizedResume(fileName: string) {
   }
 
   const resumeTemplateFile = config.html.templateFile;
-  const html = await renderToHtml(resumeTemplateFile, resumeData);
+  const html = renderToHtml(resumeTemplateFile, resumeData);
 
   const fileDotPdf = fileName.substring(0, fileName.lastIndexOf(".")) + ".pdf";
 
