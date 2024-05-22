@@ -4,16 +4,18 @@ Generate localized resumes using the same layout.
 
 ## Prerequisites
 
-* Node.js (LTS)
+- Node.js (LTS)
 
 ## Generate a resume
 
-Install dependencies 
+Install dependencies
+
 ```
 npm install
 ```
 
 Then run the generator by doing:
+
 ```
 npm run build
 npm start
@@ -74,7 +76,6 @@ Generated PDF here: [resumes/en.pdf](https://github.com/Leyka/resume/blob/main/r
 ### Preview
 
 ![en-1](https://github.com/Leyka/resume/assets/8690545/4e7759ce-a83d-4ece-a312-0c0d697190ba)
-
 
 ## License
 

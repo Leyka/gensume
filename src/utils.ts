@@ -1,4 +1,5 @@
 import { access, readFile } from "fs/promises";
+import { ResumeMetadata } from "./types";
 
 export async function readJSONFromFile(filePath: string): Promise<object> {
   if (!filePath.endsWith(".json")) {
@@ -18,6 +19,18 @@ export async function readJSONFromFile(filePath: string): Promise<object> {
   }
 }
 
+export function getResumePdfFileName(
+  resumeFileName: string,
+  metadata: ResumeMetadata | undefined,
+): string {
+  if (metadata?.exportedFileTitle) {
+    return ensureEndsWith(metadata.exportedFileTitle, ".pdf");
+  }
+
+  const fileWithoutExtension = resumeFileName.substring(0, resumeFileName.lastIndexOf("."));
+  return fileWithoutExtension + ".pdf";
+}
+
 async function checkIfFileExists(filePath: string): Promise<boolean> {
   try {
     await access(filePath);
@@ -25,4 +38,8 @@ async function checkIfFileExists(filePath: string): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+function ensureEndsWith(input: string, ending: string): string {
+  return input.endsWith(ending) ? input : input + ending;
 }

@@ -74,10 +74,15 @@ const miscSchema = Joi.object({
   sections: Joi.array().items(stringItemsSectionSchema).min(1).required(),
 });
 
+const metadataSchema = Joi.object({
+  exportedFileTitle: Joi.string().optional(),
+});
+
 const resumeSchema = Joi.object({
   personalInfo: personalInfoSchema.required(),
   experience: experienceSchema.required(),
   education: educationSchema.required(),
   techSkills: techSkillsSchema.required(),
   misc: miscSchema.required(),
+  $metadata: metadataSchema.optional(),
 });

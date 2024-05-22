@@ -2,7 +2,8 @@ import { readdir } from "node:fs";
 import { basename, join } from "node:path";
 import { config } from "./config";
 import { renderHtmlToPdf, renderToHtml } from "./renderer";
-import { readJSONFromFile } from "./utils";
+import { Resume } from "./types";
+import { getResumePdfFileName, readJSONFromFile } from "./utils";
 import { validateResumeSchema } from "./validator";
 
 const { dataDir } = config.data;
@@ -22,7 +23,7 @@ function main(): void {
 }
 
 async function processLocalizedResume(resumeFilePath: string): Promise<void> {
-  let resumeData;
+  let resumeData: Resume;
   try {
     resumeData = await readJSONFromFile(resumeFilePath);
   } catch (error) {
@@ -40,9 +41,9 @@ async function processLocalizedResume(resumeFilePath: string): Promise<void> {
   const { templateFile } = config.html;
   const html = renderToHtml(templateFile, resumeData);
 
-  const fileName = basename(resumeFilePath);
-  const fileDotPdf = fileName.substring(0, fileName.lastIndexOf(".")) + ".pdf";
-  const resumeOutputPath = join(config.pdf.outputDir, fileDotPdf);
+  const resumeInputFileName = basename(resumeFilePath);
+  const resumeOutputFileName = getResumePdfFileName(resumeFilePath, resumeData.$metadata);
+  const resumeOutputPath = join(config.pdf.outputDir, resumeOutputFileName);
 
   const { paperSize } = config.pdf;
 
@@ -52,7 +53,9 @@ async function processLocalizedResume(resumeFilePath: string): Promise<void> {
     paperSize,
   });
 
-  console.log(`✅ Resume '${resumeFilePath}' was successfully exported to PDF format.`);
+  console.log(
+    `✅ Resume '${resumeInputFileName}' was successfully exported as PDF to '${resumeOutputPath}'.`,
+  );
 }
 
 main();
