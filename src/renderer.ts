@@ -2,10 +2,11 @@ import nunjucks from "nunjucks";
 import puppeteer, { PaperFormat } from "puppeteer";
 import { config } from "./config";
 
-nunjucks.configure(config.html.templateDir, { autoescape: true });
-
 export function renderToHtml(templateFile: string, data: object): string {
-  return nunjucks.render(templateFile, data);
+  const { templateDir } = config.html;
+  const njk = nunjucks.configure(templateDir, { autoescape: true });
+
+  return njk.render(templateFile, data);
 }
 
 export async function renderHtmlToPdf(params: {

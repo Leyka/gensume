@@ -5,10 +5,10 @@ import { config } from "./config";
 import { readJSONFromFile } from "./utils";
 import { validateResumeSchema } from "./validator";
 
-const port = config.server.port;
+const { port } = config.server;
 const app = express();
 
-const templateDir = config.html.templateDir;
+const { templateDir } = config.html;
 nunjucks.configure(templateDir, {
   autoescape: true,
   express: app,

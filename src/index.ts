@@ -37,16 +37,19 @@ async function processLocalizedResume(resumeFilePath: string): Promise<void> {
     return;
   }
 
-  const resumeTemplateFile = config.html.templateFile;
-  const html = renderToHtml(resumeTemplateFile, resumeData);
+  const { templateFile } = config.html;
+  const html = renderToHtml(templateFile, resumeData);
 
   const fileName = basename(resumeFilePath);
   const fileDotPdf = fileName.substring(0, fileName.lastIndexOf(".")) + ".pdf";
+  const resumeOutputPath = join(config.pdf.outputDir, fileDotPdf);
+
+  const { paperSize } = config.pdf;
 
   await renderHtmlToPdf({
     html,
-    resumeOutputPath: join(config.pdf.outputDir, fileDotPdf),
-    paperSize: config.pdf.paperSize,
+    resumeOutputPath,
+    paperSize,
   });
 
   console.log(`✅ Resume '${resumeFilePath}' was successfully exported to PDF format.`);
