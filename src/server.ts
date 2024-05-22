@@ -1,8 +1,8 @@
 import express from "express";
-import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import nunjucks from "nunjucks";
 import { config } from "./config";
+import { readJSONFromFile } from "./utils";
 import { validateResumeSchema } from "./validator";
 
 const port = config.server.port;
@@ -17,24 +17,21 @@ nunjucks.configure(templateDir, {
 app.set("view engine", "njk");
 
 app.get("/:lang?", async (req, res) => {
-  const defaultLang = config.server.defaultLang;
+  const { defaultLang } = config.server;
+  const { dataDir } = config.data;
+
   const lang = req.params.lang || defaultLang;
+  const resumeFilePath = join(dataDir, `${lang}.json`);
 
-  const dataDir = config.data.dir;
-  const resumePath = join(dataDir, `${lang}.json`);
-  const fileExists = await access(resumePath)
-    .then(() => true)
-    .catch(() => false);
-
-  if (!fileExists) {
-    res.status(404).send(`Error: resume "${resumePath}" was not found.`);
+  let resumeData;
+  try {
+    resumeData = await readJSONFromFile(resumeFilePath);
+  } catch (error) {
+    res.status(400).send(`Error: ${error}`);
     return;
   }
 
-  const resumeData = await readFile(resumePath, "utf-8");
-  const jsonResumeData = JSON.parse(resumeData);
-
-  const errors = await validateResumeSchema(jsonResumeData);
+  const errors = await validateResumeSchema(resumeData);
   if (errors) {
     let err = `
     <h2>The resume "${lang}" has invalid schema.</h2>
@@ -51,8 +48,9 @@ app.get("/:lang?", async (req, res) => {
     return;
   }
 
-  const templateFile = config.html.templateFile;
-  res.render(templateFile, jsonResumeData);
+  const { templateFile } = config.html;
+
+  res.render(templateFile, resumeData);
 });
 
 app.listen(port, () => {

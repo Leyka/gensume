@@ -6,7 +6,7 @@ export const config = {
     defaultLang: "en",
   },
   data: {
-    dir: join(process.cwd(), "data"),
+    dataDir: join(process.cwd(), "data"),
   },
   html: {
     templateDir: join(process.cwd(), "src", "template"),
