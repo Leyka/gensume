@@ -49,8 +49,8 @@ app.get("/:lang?", async (req, res) => {
   }
 
   const { templateFile } = config.html;
-
-  res.render(templateFile, resumeData);
+  const data = { ...resumeData, lang };
+  res.render(templateFile, data);
 });
 
 app.listen(port, () => {
