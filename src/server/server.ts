@@ -1,32 +1,32 @@
 import express from "express";
 import { join } from "node:path";
 import nunjucks from "nunjucks";
-import { config } from "./config";
-import { readJsonFromFile } from "./file/json-file-reader";
-import { Resume } from "./resume/resume";
-import { validateResumeSchema } from "./resume/resume-validator";
+import { config } from "../config";
+import { readJsonFromFile } from "../utils";
+import { validateResumeSchema } from "../validator";
 
 const { port } = config.server;
 const app = express();
 
 const { templateDir } = config.template;
+
 nunjucks.configure(templateDir, {
   autoescape: true,
   express: app,
   watch: true,
 });
+
 app.set("view engine", "njk");
 
 app.get("/:lang?", async (req, res) => {
-  const { defaultLang } = config.server;
   const { dataDir } = config.resume;
-
+  const { defaultLang } = config.server;
   const lang = req.params.lang || defaultLang;
   const resumeFilePath = join(dataDir, `${lang}.json`);
 
   let resumeData;
   try {
-    resumeData = await readJsonFromFile<Resume>(resumeFilePath);
+    resumeData = await readJsonFromFile(resumeFilePath);
   } catch (error) {
     res.status(400).send(`Error: ${error}`);
     return;

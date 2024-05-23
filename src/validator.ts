@@ -1,7 +1,5 @@
 import Joi from "joi";
 
-export type ValidateResumeSchemaFn = typeof validateResumeSchema;
-
 export function validateResumeSchema(data: object): string[] | null {
   const { error } = resumeSchema.validate(data, {
     abortEarly: false,

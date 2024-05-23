@@ -11,6 +11,6 @@
     "outDir": "./dist",
     "baseUrl": "."
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/server.ts.old"],
   "exclude": ["node_modules"]
 }
