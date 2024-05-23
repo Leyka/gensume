@@ -37,18 +37,20 @@ export async function generateResume(resumeJsonFilePath: string): Promise<Genera
 }
 
 function generateHtmlFromTemplate(data: object): string {
-  const njk = nunjucks.configure(config.template.templateDir, { autoescape: true });
+  const { templateDir, templateFile } = config.template;
 
-  const html = njk.render(config.template.templateFile, data);
-  return html;
+  const njk = nunjucks.configure(templateDir, { autoescape: true });
+  return njk.render(templateFile, data);
 }
 
 async function generatePdfFile(html: string, outputPdfFilePath: string): Promise<void> {
+  const { paperSize } = config.pdf;
+
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
   await page.setContent(html);
-  await page.pdf({ path: outputPdfFilePath, format: config.pdf.paperSize as PaperFormat });
+  await page.pdf({ path: outputPdfFilePath, format: paperSize as PaperFormat });
 
   await browser.close();
 }
