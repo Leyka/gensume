@@ -1,4 +1,5 @@
 import { join } from "node:path";
+import { config } from "../config";
 import { ensureEndsWith, extractFileNameFromPath } from "../file/file-utils";
 import { ReadJsonFromFileFn, readJsonFromFile } from "../file/json-file-reader";
 import { GeneratePdfFn, generatePdf } from "../pdf/pdf-generator";
@@ -13,14 +14,6 @@ type Deps = {
   generatePdf: GeneratePdfFn;
 };
 
-type Params = {
-  resumeFilePath: string;
-  templateDir: string;
-  templateFile: string;
-  outputPdfDir: string;
-  paperSize: string;
-};
-
 type Response = {
   validationErrors?: string[];
   resumePdfPath?: string;
@@ -29,8 +22,8 @@ type Response = {
 export type ProcessResumeFn = ReturnType<typeof makeProcessResume>;
 
 export function makeProcessResume(deps: Deps) {
-  return async function processResume(params: Params): Promise<Response> {
-    const resumeData = await deps.readJsonFromFile(params.resumeFilePath);
+  return async function processResume(resumeFilePath: string): Promise<Response> {
+    const resumeData = await deps.readJsonFromFile(resumeFilePath);
 
     const validationErrors = deps.validateResumeSchema(resumeData);
     if (validationErrors) {
@@ -39,15 +32,15 @@ export function makeProcessResume(deps: Deps) {
 
     const html = deps.renderTemplate({
       data: resumeData,
-      templateDir: params.templateDir,
-      templateFile: params.templateFile,
+      templateDir: config.template.templateDir,
+      templateFile: config.template.templateFile,
     });
 
-    const resumePdfFileName = getPdfFileName(params.resumeFilePath, resumeData.$metadata);
-    const resumePdfPath = join(params.outputPdfDir, resumePdfFileName);
+    const resumePdfFileName = getPdfFileName(resumeFilePath, resumeData.$metadata);
+    const resumePdfPath = join(config.pdf.outputDir, resumePdfFileName);
     await deps.generatePdf({
       html,
-      paperSize: params.paperSize,
+      paperSize: config.pdf.paperSize,
       outputPdfFilePath: resumePdfPath,
     });
 

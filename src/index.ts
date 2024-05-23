@@ -19,13 +19,7 @@ async function processLocalizedResume(resumeFileName: string): Promise<void> {
   const resumeFilePath = join(dataDir, resumeFileName);
 
   try {
-    const { validationErrors, resumePdfPath } = await processResume({
-      resumeFilePath,
-      templateDir: config.template.templateDir,
-      templateFile: config.template.templateFile,
-      outputPdfDir: config.pdf.outputDir,
-      paperSize: config.pdf.paperSize,
-    });
+    const { validationErrors, resumePdfPath } = await processResume(resumeFilePath);
 
     if (validationErrors) {
       console.error(`❌ Resume '${resumeFileName}' is invalid. The following errors were found:`);

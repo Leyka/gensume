@@ -71,7 +71,7 @@ Note: [Tailwind CSS](https://tailwindcss.com/) is a personal preference and can 
 
 ### Output: `.pdf`
 
-Generated PDF here: [resumes/en.pdf](https://github.com/Leyka/resume/blob/main/resumes/en.pdf)
+Generated PDF here: [resumes/Resume - John Doe.pdf](https://github.com/Leyka/resume/blob/main/resumes/Resume%20-%20John%20Doe.pdf)
 
 ### Preview
 
