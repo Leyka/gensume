@@ -5,10 +5,10 @@ export const config = {
     port: 3000,
     defaultLang: "en",
   },
-  data: {
+  resume: {
     dataDir: join(process.cwd(), "data"),
   },
-  html: {
+  template: {
     templateDir: join(process.cwd(), "src", "template"),
     templateFile: "resume.njk",
   },

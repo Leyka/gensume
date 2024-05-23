@@ -2,13 +2,14 @@ import express from "express";
 import { join } from "node:path";
 import nunjucks from "nunjucks";
 import { config } from "./config";
-import { readJSONFromFile } from "./utils";
-import { validateResumeSchema } from "./validator";
+import { readJsonFromFile } from "./file/json-file-reader";
+import { Resume } from "./resume/resume";
+import { validateResumeSchema } from "./resume/resume-validator";
 
 const { port } = config.server;
 const app = express();
 
-const { templateDir } = config.html;
+const { templateDir } = config.template;
 nunjucks.configure(templateDir, {
   autoescape: true,
   express: app,
@@ -18,14 +19,14 @@ app.set("view engine", "njk");
 
 app.get("/:lang?", async (req, res) => {
   const { defaultLang } = config.server;
-  const { dataDir } = config.data;
+  const { dataDir } = config.resume;
 
   const lang = req.params.lang || defaultLang;
   const resumeFilePath = join(dataDir, `${lang}.json`);
 
   let resumeData;
   try {
-    resumeData = await readJSONFromFile(resumeFilePath);
+    resumeData = await readJsonFromFile<Resume>(resumeFilePath);
   } catch (error) {
     res.status(400).send(`Error: ${error}`);
     return;
@@ -48,7 +49,7 @@ app.get("/:lang?", async (req, res) => {
     return;
   }
 
-  const { templateFile } = config.html;
+  const { templateFile } = config.template;
   const data = { ...resumeData, lang };
   res.render(templateFile, data);
 });

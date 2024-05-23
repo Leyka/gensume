@@ -1,61 +1,45 @@
-import { readdir } from "node:fs";
-import { basename, join } from "node:path";
+import { readdir } from "node:fs/promises";
+import { join } from "node:path";
 import { config } from "./config";
-import { renderHtmlToPdf, renderToHtml } from "./renderer";
-import { Resume } from "./types";
-import { getResumePdfFileName, readJSONFromFile } from "./utils";
-import { validateResumeSchema } from "./validator";
+import { processResume } from "./resume/resume-processor";
 
-const { dataDir } = config.data;
+const { dataDir } = config.resume;
 
-function main(): void {
-  readdir(dataDir, (err, files) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    files.forEach((file) => {
-      const filePath = join(dataDir, file);
-      processLocalizedResume(filePath);
-    });
-  });
-}
-
-async function processLocalizedResume(resumeFilePath: string): Promise<void> {
-  let resumeData: Resume;
+async function main(): Promise<void> {
   try {
-    resumeData = await readJSONFromFile(resumeFilePath);
+    const resumes = await readdir(dataDir);
+    resumes.forEach(processLocalizedResume);
   } catch (error) {
     console.error(`❌ ${error}`);
     return;
   }
+}
 
-  const errors = validateResumeSchema(resumeData);
-  if (errors) {
-    console.error(`❌ Resume '${resumeFilePath}' is invalid. The following errors were found:`);
-    console.error(errors);
+async function processLocalizedResume(resumeFileName: string): Promise<void> {
+  const resumeFilePath = join(dataDir, resumeFileName);
+
+  try {
+    const { validationErrors, resumePdfPath } = await processResume({
+      resumeFilePath,
+      templateDir: config.template.templateDir,
+      templateFile: config.template.templateFile,
+      outputPdfDir: config.pdf.outputDir,
+      paperSize: config.pdf.paperSize,
+    });
+
+    if (validationErrors) {
+      console.error(`❌ Resume '${resumeFileName}' is invalid. The following errors were found:`);
+      console.error(validationErrors);
+      return;
+    }
+
+    console.log(
+      `✅ Resume '${resumeFileName}' was successfully exported as PDF to '${resumePdfPath}'.`,
+    );
+  } catch (error) {
+    console.error(`❌ ${error}`);
     return;
   }
-
-  const { templateFile } = config.html;
-  const html = renderToHtml(templateFile, resumeData);
-
-  const resumeInputFileName = basename(resumeFilePath);
-  const resumeOutputFileName = getResumePdfFileName(resumeFilePath, resumeData.$metadata);
-  const resumeOutputPath = join(config.pdf.outputDir, resumeOutputFileName);
-
-  const { paperSize } = config.pdf;
-
-  await renderHtmlToPdf({
-    html,
-    resumeOutputPath,
-    paperSize,
-  });
-
-  console.log(
-    `✅ Resume '${resumeInputFileName}' was successfully exported as PDF to '${resumeOutputPath}'.`,
-  );
 }
 
 main();
