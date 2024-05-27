@@ -1,7 +1,7 @@
 import express from "express";
 import nunjucks from "nunjucks";
 import { config } from "../config";
-import { handleGetResume } from "./handlers";
+import { getByLang } from "./handler";
 
 const app = express();
 
@@ -14,7 +14,7 @@ nunjucks.configure(templateDir, {
 
 app.set("view engine", "njk");
 
-app.get("/:lang?", handleGetResume);
+app.get("/:lang?", getByLang);
 
 const { port } = config.server;
 app.listen(port, () => {

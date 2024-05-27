@@ -5,7 +5,7 @@ import { readJsonFromFile } from "../utils";
 import { validateResumeSchema } from "../validator";
 
 // GET /:lang?
-export async function handleGetResume(req: Request, res: Response) {
+export async function getByLang(req: Request, res: Response) {
   const { dataDir } = config.resume;
   const { defaultLang } = config.server;
   const lang = req.params.lang || defaultLang;
