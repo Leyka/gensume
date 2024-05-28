@@ -1,7 +1,6 @@
 {
-  "name": "resume",
+  "name": "gensume",
   "version": "1.0.0",
-  "description": "My resume generator",
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
