@@ -1,6 +1,6 @@
-# resume
+# gensume
 
-Generate localized resumes using the same layout.
+Simple localized resume generator using the same layout
 
 ## Prerequisites
 
@@ -17,8 +17,7 @@ npm install
 Then run the generator by doing:
 
 ```
-npm run build
-npm start
+npm run build && npm start
 ```
 
 The process can be summarized as: `json` + `html` = `pdf`.
@@ -27,10 +26,10 @@ Once you add a language data inside [data/](https://github.com/Leyka/resume/tree
 
 ```mermaid
 flowchart LR
-  A((start)) ==read==> B{.json}
-  B --> C[schema validator]
-  C --> D[to html]
-  D --> E[to pdf]
+  A((start)) --> B{read *.json}
+  B --> C[validate json]
+  C --> D[html]
+  D --> E[pdf]
 ```
 
 Internally, the generator leverages [Nunjucks](https://mozilla.github.io/nunjucks/), to create HTML content from templates.
