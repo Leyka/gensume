@@ -2,7 +2,7 @@
   @page {
     margin-left: 1cm;
     margin-right: 1cm;
-    margin-top: 0.25cm;
+    margin-top: 0.35cm;
     margin-bottom: 0.25cm;
   }
 }
@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: "Computer Modern Serif", serif;
+  font-family: Cambria, serif;
   font-size: 16px;
 }
 

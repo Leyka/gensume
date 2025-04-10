@@ -19,7 +19,10 @@ type GeneratedResumeResponse = {
   resumePdfPath?: string;
 };
 
-export async function generateResume(resumeJsonFilePath: string): Promise<GeneratedResumeResponse> {
+export async function generateResume(
+  resumeJsonFilePath: string,
+  paperSize: string,
+): Promise<GeneratedResumeResponse> {
   const resumeData = await readJsonFromFile<Resume>(resumeJsonFilePath);
 
   const validationErrors = validateResumeSchema(resumeData);
@@ -29,9 +32,9 @@ export async function generateResume(resumeJsonFilePath: string): Promise<Genera
 
   const html = generateHtmlFromTemplate(resumeData);
 
-  const resumePdfFileName = getPdfFileName(resumeJsonFilePath, resumeData.$metadata);
+  const resumePdfFileName = getPdfFileName(resumeJsonFilePath, resumeData.$metadata, paperSize);
   const resumePdfPath = join(config.pdf.outputDir, resumePdfFileName);
-  await generatePdfFile(html, resumePdfPath);
+  await generatePdfFile(html, resumePdfPath, paperSize);
 
   return { resumePdfPath };
 }
@@ -43,9 +46,11 @@ function generateHtmlFromTemplate(data: object): string {
   return njk.render(templateFile, data);
 }
 
-async function generatePdfFile(html: string, outputPdfFilePath: string): Promise<void> {
-  const { paperSize } = config.pdf;
-
+async function generatePdfFile(
+  html: string,
+  outputPdfFilePath: string,
+  paperSize: string,
+): Promise<void> {
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
@@ -55,13 +60,17 @@ async function generatePdfFile(html: string, outputPdfFilePath: string): Promise
   await browser.close();
 }
 
-function getPdfFileName(resumeJsonFilePath: string, metadata: ResumeMetadata | undefined): string {
+function getPdfFileName(
+  resumeJsonFilePath: string,
+  metadata: ResumeMetadata | undefined,
+  paperSize: string,
+): string {
   if (metadata?.exportedFileTitle) {
-    return ensureEndsWith(metadata.exportedFileTitle, ".pdf");
+    return ensureEndsWith(metadata.exportedFileTitle, ` - ${paperSize}.pdf`);
   }
 
   const fileName = basename(resumeJsonFilePath);
   const fileWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
 
-  return fileWithoutExtension + ".pdf";
+  return `${fileWithoutExtension} - ${paperSize}.pdf`;
 }

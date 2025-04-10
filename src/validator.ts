@@ -25,8 +25,6 @@ const personalInfoSchema = Joi.object({
   phone: Joi.string().required(),
   city: Joi.string().required(),
   province: Joi.string().required(),
-  linkedIn: Joi.string().required(),
-  github: Joi.string().required(),
   spokenLanguages: stringItemsSectionSchema.required(),
 });
 
@@ -38,7 +36,7 @@ const experienceSchema = Joi.object({
         company: Joi.string().required(),
         jobTitle: Joi.string().required(),
         startDate: Joi.date().required(),
-        endDate: Joi.date().required(),
+        endDate: Joi.string().optional(),
         city: Joi.string().required(),
         achievements: Joi.array().items(Joi.string()).min(1).required(),
       }),

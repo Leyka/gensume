@@ -9,17 +9,14 @@
         <style>{% include "style.css" %}</style>
     </head>
     <body>
-        <section class="flex flex-col items-center mt-5 text-center">
-            <div class="mb-2">
+        <section class="flex flex-col items-center mt-6 text-center">
+            <div class="mb-1">
                 <h1 class="text-3xl font-bold leading-5">{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h1>
                 <p class="text-lg small-caps">{{ personalInfo.title }}</p>
             </div>
             <div class="leading-5">
                 <p>{{ personalInfo.city }}, {{ personalInfo.province }}</p>
                 <p>{{ personalInfo.phone }} | <a href="mailto:{{personalInfo.email}}">{{ personalInfo.email }}</a></p>
-                <p>
-                    <a href="https://{{ personalInfo.linkedIn }}">{{ personalInfo.linkedIn }}</a> | <a href="https://{{ personalInfo.github }}">{{ personalInfo.github }}</a>
-                </p>
                 <p>{{ personalInfo.spokenLanguages.sectionTitle }} :
                     {% for lang in personalInfo.spokenLanguages.items %}
                         {{ lang }}{% if not loop.last %},{% endif %}
@@ -28,8 +25,8 @@
             </div>
         </section>
         {# Section <Experience> #}
-        <section>
-            <h2 class="text-base font-bold mb-3 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{experience.sectionTitle}}</h2>
+        <section class="mt-4">
+            <h2 class="text-base font-bold mb-2 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{experience.sectionTitle}}</h2>
             {% for experience in experience.experiences %}
                 <div class="flex mb-3 leading-5">
                     <div class="w-3/12 text-right pr-4 border-r border-black">
@@ -41,7 +38,7 @@
                         <p class="small-caps">{{experience.jobTitle}}</p>
                         <ul class="ml-5">
                             {% for achievement in experience.achievements %}
-                                <li>{{achievement}}.</li>
+                                <li>{{achievement}}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -50,7 +47,7 @@
         </section>
         {# Section <Education> #}
         <section class="mt-4">
-            <h2 class="text-base font-bold mb-3 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{education.sectionTitle}}</h2>
+            <h2 class="text-base font-bold mb-2 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{education.sectionTitle}}</h2>
             {% for education in education.educations %}
                 <div class="flex mb-3 leading-5">
                     <div class="w-3/12 text-right pr-4 border-r border-black">
@@ -71,7 +68,7 @@
         </section>
         {# Section <Technical Skills> #}
         <section class="mt-4">
-            <h2 class="text-base mb-3 font-bold border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{techSkills.sectionTitle}}</h2>
+            <h2 class="text-base mb-2 font-bold border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{techSkills.sectionTitle}}</h2>
             {% for section in techSkills.sections %}
                 <div class="flex leading-6">
                     <div class="w-3/12 text-right pr-4 small-caps">
@@ -87,7 +84,7 @@
         </section>
         {# Section <Misc> #}
         <section class="mt-4">
-            <h2 class="text-base font-bold mb-3 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{misc.sectionTitle}}</h2>
+            <h2 class="text-base font-bold mb-2 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{misc.sectionTitle}}</h2>
             {% for section in misc.sections %}
                 <div class="flex leading-6">
                     <div class="w-3/12 text-right pr-4 small-caps">

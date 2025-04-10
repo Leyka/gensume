@@ -13,7 +13,7 @@ export const config = {
     templateFile: "resume.njk",
   },
   pdf: {
-    paperSize: "Letter", // Letter, Legal, A4, etc.
+    paperSizes: ["Letter", "A4"], // Letter, Legal, A4, etc.
     outputDir: join(process.cwd(), "resumes"),
   },
 };
