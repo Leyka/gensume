@@ -9,7 +9,7 @@
         <style>{% include "style.css" %}</style>
     </head>
     <body>
-        <section class="flex flex-col items-center mt-6 text-center">
+        <section class="flex flex-col items-center mt-4 text-center">
             <div class="mb-1">
                 <h1 class="text-3xl font-bold leading-5">{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h1>
                 <p class="text-lg small-caps">{{ personalInfo.title }}</p>
@@ -25,10 +25,10 @@
             </div>
         </section>
         {# Section <Experience> #}
-        <section class="mt-4">
+        <section class="mt-2">
             <h2 class="text-base font-bold mb-2 border-b border-neutral-800 uppercase sans-serif text-neutral-800">{{experience.sectionTitle}}</h2>
             {% for experience in experience.experiences %}
-                <div class="flex mb-3 leading-5">
+                <div class="flex mb-3 leading-5 text-justify">
                     <div class="w-3/12 text-right pr-4 border-r border-black">
                         <p class="small-caps">{{experience.startDate}} - {{experience.endDate}}</p>
                         <p>{{experience.city}}</p>
